@@ -9,7 +9,7 @@ return {
 			-- 1. Mason でバイナリを管理
 			require("mason").setup()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "terraformls", "yamlls" },
+				ensure_installed = { "lua_ls", "terraformls", "yamlls", "pyright" },
 			})
 
 			-- 2. LSP接続時の共通キーマップ
@@ -23,8 +23,8 @@ return {
 				end,
 			})
 
-			-- 3. 【最重要】Neovim 0.11 の組み込み API を使用
-			-- 警告の原因である require('lspconfig') を一切使いません
+			-- 3. Neovim 0.11 組み込み API で各LSPを設定・有効化
+			-- nvim-lspconfig は mason-lspconfig 経由のインストール管理のみに使用
 			local servers = {
 				lua_ls = {
 					settings = {
@@ -48,10 +48,10 @@ return {
 						},
 					},
 				},
+				pyright = {},
 			}
 
 			for server, config in pairs(servers) do
-				-- 0.11 組み込みの API で設定を登録し、有効化する
 				vim.lsp.config(server, config)
 				vim.lsp.enable(server)
 			end

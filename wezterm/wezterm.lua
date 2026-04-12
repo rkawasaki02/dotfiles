@@ -10,7 +10,11 @@ local config = wezterm.config_builder()
 config.automatically_reload_config = true
 -- 日本語入力（macOS）
 config.use_ime = true
--- フォント
+-- フォント（日本語フォールバックつき）
+config.font = wezterm.font_with_fallback({
+	{ family = "JetBrains Mono" }, -- メインフォント（なければHackやFira Codeに変更）
+	{ family = "Hiragino Sans" }, -- 日本語フォールバック（macOS標準搭載）
+})
 config.font_size = 13.0
 config.color_scheme = "AdventureTime"
 config.text_background_opacity = 1.0
@@ -21,7 +25,7 @@ config.macos_window_background_blur = 20
 config.window_decorations = "RESIZE"
 -- タブの+とバツを消す
 config.show_new_tab_button_in_tab_bar = false
----- バックスラッシュ入力
+-- バックスラッシュ入力
 config.send_composed_key_when_left_alt_is_pressed = true
 config.send_composed_key_when_right_alt_is_pressed = true
 
@@ -40,6 +44,7 @@ config.colors = {
 		inactive_tab_edge = "none",
 	},
 }
+
 -- アクティブタブに色をつける
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	local background = "#5c6d74"
@@ -59,30 +64,8 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 	}
 end)
 
-local function is_vim(pane)
-	-- 現在のペインで nvim が動いているか判定
-	return pane:get_user_vars().IS_NVIM == 'true'
-end
-
-local function direction_keys(key, direction)
-	return {
-		key = key,
-		mods = 'CTRL',
-		action = wezterm.action_callback(function(window, pane)
-			if is_vim(pane) then
-				-- Neovim内なら、そのままCtrl+keyを送信
-				window:perform_action(wezterm.action.SendKey({ key = key, mods = 'CTRL' }), pane)
-			else
-				-- WezTerm内なら、ペインを移動
-				window:perform_action(wezterm.action.ActivatePaneDirection(direction), pane)
-			end
-		end),
-	}
-end
-
 -- Neovim(smart-splits)と連携するための判断関数
 local function is_vim(pane)
-	-- Neovim側から送られてきた IS_NVIM 変数を確認する
 	return pane:get_user_vars().IS_NVIM == 'true'
 end
 
@@ -92,10 +75,8 @@ local function split_nav(key, direction)
 		mods = 'CTRL',
 		action = wezterm.action_callback(function(win, pane)
 			if is_vim(pane) then
-				-- Neovimが動いていれば、NeovimにCtrl+キーをそのまま渡す
 				win:perform_action({ SendKey = { key = key, mods = 'CTRL' } }, pane)
 			else
-				-- Neovimがいなければ、WezTermのペインを移動させる
 				win:perform_action({ ActivatePaneDirection = direction }, pane)
 			end
 		end),
@@ -103,7 +84,6 @@ local function split_nav(key, direction)
 end
 
 config.keys = {
-	-- Ctrl + hjkl で「壁」を突き抜ける設定
 	split_nav('h', 'Left'),
 	split_nav('j', 'Down'),
 	split_nav('k', 'Up'),
