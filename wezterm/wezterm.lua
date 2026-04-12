@@ -80,12 +80,34 @@ local function direction_keys(key, direction)
 	}
 end
 
+-- Neovim(smart-splits)と連携するための判断関数
+local function is_vim(pane)
+	-- Neovim側から送られてきた IS_NVIM 変数を確認する
+	return pane:get_user_vars().IS_NVIM == 'true'
+end
+
+local function split_nav(key, direction)
+	return {
+		key = key,
+		mods = 'CTRL',
+		action = wezterm.action_callback(function(win, pane)
+			if is_vim(pane) then
+				-- Neovimが動いていれば、NeovimにCtrl+キーをそのまま渡す
+				win:perform_action({ SendKey = { key = key, mods = 'CTRL' } }, pane)
+			else
+				-- Neovimがいなければ、WezTermのペインを移動させる
+				win:perform_action({ ActivatePaneDirection = direction }, pane)
+			end
+		end),
+	}
+end
+
 config.keys = {
-	direction_keys('h', 'Left'),
-	direction_keys('j', 'Down'),
-	direction_keys('k', 'Up'),
-	direction_keys('l', 'Right'),
+	-- Ctrl + hjkl で「壁」を突き抜ける設定
+	split_nav('h', 'Left'),
+	split_nav('j', 'Down'),
+	split_nav('k', 'Up'),
+	split_nav('l', 'Right'),
 }
 
--- 設定を返す
 return config
