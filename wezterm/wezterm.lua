@@ -10,9 +10,10 @@ local config = wezterm.config_builder()
 config.automatically_reload_config = true
 -- 日本語入力（macOS）
 config.use_ime = true
--- フォントサイズ
+-- フォント
 config.font_size = 13.0
 config.color_scheme = "AdventureTime"
+config.text_background_opacity = 1.0
 -- 背景を少し透過
 config.window_background_opacity = 0.7
 config.macos_window_background_blur = 20
@@ -20,8 +21,7 @@ config.macos_window_background_blur = 20
 config.window_decorations = "RESIZE"
 -- タブの+とバツを消す
 config.show_new_tab_button_in_tab_bar = false
--- config.show_close_tab_button_in_tabs = false
--- バックスラッシュ入力
+---- バックスラッシュ入力
 config.send_composed_key_when_left_alt_is_pressed = true
 config.send_composed_key_when_right_alt_is_pressed = true
 
