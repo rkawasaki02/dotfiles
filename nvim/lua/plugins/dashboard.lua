@@ -40,6 +40,13 @@ return {
 				if count == 0 then
 					table.insert(buttons, dashboard.button("n", "󰈚  No recent files", ""))
 				end
+				-- eキーでoil.nvimを開く（lazy loadに対応するためLua関数で呼ぶ）
+				local explorer_btn = dashboard.button("e", "  Explorer", "")
+				explorer_btn.opts.keyval = "e"
+				explorer_btn.on_press = function()
+					require("oil").open()
+				end
+				table.insert(buttons, explorer_btn)
 				return buttons
 			end
 

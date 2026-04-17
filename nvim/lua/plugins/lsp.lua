@@ -42,8 +42,17 @@ return {
 					settings = {
 						yaml = {
 							schemas = {
-								["https://raw.githubusercontent.com/awslabs/goformation/v4.18.4/schema/cloudformation.json"] =
-								"/*.cf.yaml",
+								-- CloudFormationのスキーマ補完（命名規則を広めに対応）
+								["https://raw.githubusercontent.com/awslabs/goformation/v4.18.4/schema/cloudformation.json"] = {
+									"/*.cf.yaml",
+									"/*.cfn.yaml",
+									"/*-template.yaml",
+									"/*_template.yaml",
+									"/template.yaml",
+									"/cloudformation/*.yaml",
+									"/cfn/*.yaml",
+									"/infra/*.yaml",
+								},
 							},
 						},
 					},
