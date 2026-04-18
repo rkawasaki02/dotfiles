@@ -15,6 +15,7 @@ return {
 				"██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║",
 				"╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝",
 			}
+
 			for k, v in ipairs(logo) do
 				logo[k] = "    " .. v .. "    "
 			end
@@ -40,7 +41,6 @@ return {
 				if count == 0 then
 					table.insert(buttons, dashboard.button("n", "󰈚  No recent files", ""))
 				end
-				-- eキーでoil.nvimを開く（lazy loadに対応するためLua関数で呼ぶ）
 				local explorer_btn = dashboard.button("e", "  Explorer", "")
 				explorer_btn.opts.keyval = "e"
 				explorer_btn.on_press = function()
@@ -51,9 +51,22 @@ return {
 			end
 
 			dashboard.section.buttons.val = get_recent_files()
-			dashboard.section.footer.val = ""
+			dashboard.section.footer.val = "⚡ loading..."
+			dashboard.section.footer.opts.hl = "Comment"
 
 			alpha.setup(dashboard.opts)
+
+			-- User後に起動時間を取得して更新
+			vim.api.nvim_create_autocmd("User", {
+				once = true,
+				pattern = "LazyVimStarted",
+				callback = function()
+					local stats = require("lazy").stats()
+					dashboard.section.footer.val = "⚡ Neovim loaded in " ..
+					string.format("%.2f", stats.startuptime) .. "ms"
+					pcall(vim.cmd, "AlphaRedraw")
+				end,
+			})
 
 			vim.api.nvim_create_autocmd("User", {
 				pattern = "AlphaReady",

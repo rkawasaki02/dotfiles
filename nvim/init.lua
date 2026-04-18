@@ -51,6 +51,7 @@ vim.opt.guicursor = "n-c:block-CursorNormal,i:ver25-CursorInsert,v:block-CursorV
 -- ==========================================================================
 -- 4. ウィンドウ分割キーマップ
 -- ==========================================================================
+vim.keymap.set("n", "<leader>a", "<cmd>Alpha<cr>", { desc = "Dashboard" })
 vim.keymap.set("n", "<leader>sv", "<cmd>vsplit<cr>", { desc = "縦分割" })
 vim.keymap.set("n", "<leader>sh", "<cmd>split<cr>", { desc = "横分割" })
 vim.keymap.set("n", "<leader>sc", "<cmd>close<cr>", { desc = "分割を閉じる" })
@@ -91,8 +92,9 @@ vim.keymap.set("n", "<leader>r", function()
 	vim.cmd("split | terminal " .. cmd)
 end, { desc = "Run file" })
 
--- インサートモードでjkでノーマルモードに戻る
+-- インサートモード・ビジュアルモードでjkでノーマルモードに戻る
 vim.keymap.set("i", "jk", "<Esc>", { desc = "Normal mode" })
+vim.keymap.set("v", "jk", "<Esc>", { desc = "Normal mode" })
 -- ターミナルモードでjkでノーマルモードに戻る
 vim.keymap.set("t", "jk", "<C-\\><C-n>", { desc = "Terminal normal mode" })
 
