@@ -56,10 +56,9 @@ return {
 
 			alpha.setup(dashboard.opts)
 
-			-- User後に起動時間を取得して更新
 			vim.api.nvim_create_autocmd("User", {
-				once = true,
 				pattern = "LazyVimStarted",
+				once = true,
 				callback = function()
 					local stats = require("lazy").stats()
 					dashboard.section.footer.val = "⚡ Neovim loaded in " ..
