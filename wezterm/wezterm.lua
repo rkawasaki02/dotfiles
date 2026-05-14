@@ -2,9 +2,9 @@
 -- メイン設定
 -- --------------------
 
--- WezTerm API
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
+local act = wezterm.action
 
 -- 設定変更を即反映
 config.automatically_reload_config = true
@@ -12,8 +12,8 @@ config.automatically_reload_config = true
 config.use_ime = true
 -- フォント（日本語フォールバックつき）
 config.font = wezterm.font_with_fallback({
-	{ family = "JetBrains Mono" }, -- メインフォント（なければHackやFira Codeに変更）
-	{ family = "Hiragino Sans" }, -- 日本語フォールバック（macOS標準搭載）
+	{ family = "JetBrains Mono" },
+	{ family = "Hiragino Sans" },
 })
 config.font_size = 13.0
 config.color_scheme = "AdventureTime"
@@ -23,6 +23,8 @@ config.window_background_opacity = 0.7
 config.macos_window_background_blur = 20
 -- タブバーの上部のタイトルバーを削除
 config.window_decorations = "RESIZE"
+-- タブが1つの時はタブバーを非表示
+config.hide_tab_bar_if_only_one_tab = true
 -- タブの+とバツを消す
 config.show_new_tab_button_in_tab_bar = false
 -- バックスラッシュ入力
@@ -84,10 +86,18 @@ local function split_nav(key, direction)
 end
 
 config.keys = {
+	-- Ctrl+hjkl: smart-splitsと連携
 	split_nav('h', 'Left'),
 	split_nav('j', 'Down'),
 	split_nav('k', 'Up'),
 	split_nav('l', 'Right'),
+
+	-- Cmd+数字: タブ番号で直接切り替え
+	{ key = "1", mods = "SUPER", action = act.ActivateTab(0) },
+	{ key = "2", mods = "SUPER", action = act.ActivateTab(1) },
+	{ key = "3", mods = "SUPER", action = act.ActivateTab(2) },
+	{ key = "4", mods = "SUPER", action = act.ActivateTab(3) },
+	{ key = "5", mods = "SUPER", action = act.ActivateTab(4) },
 }
 
 return config
