@@ -52,7 +52,7 @@ vim.opt.guicursor = "n-c:block-CursorNormal,i:ver25-CursorInsert,v:block-CursorV
 -- 4. ウィンドウ分割キーマップ
 -- ==========================================================================
 vim.keymap.set("n", "<leader>a", "<cmd>Alpha<cr>", { desc = "Dashboard" })
-vim.keymap.set("n", "<leader>tn", "<cmd>tabnew<cr>", { desc = "New tab" })
+vim.keymap.set("n", "<leader>tn", "<cmd>split | terminal<cr>", { desc = "Open terminal" })
 vim.keymap.set("n", "<leader>sv", "<cmd>vsplit<cr>", { desc = "縦分割" })
 vim.keymap.set("n", "<leader>sh", "<cmd>split<cr>", { desc = "横分割" })
 vim.keymap.set("n", "<leader>sc", "<cmd>close<cr>", { desc = "分割を閉じる" })
