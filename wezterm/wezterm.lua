@@ -16,11 +16,12 @@ config.font = wezterm.font_with_fallback({
 	{ family = "Hiragino Sans" },
 })
 config.font_size = 13.0
-config.color_scheme = "AdventureTime"
+-- カラースキーマ
+config.color_scheme = "Tokyo Night"
 config.text_background_opacity = 1.0
 -- 背景を少し透過
-config.window_background_opacity = 0.7
-config.macos_window_background_blur = 20
+config.window_background_opacity = 1.0
+config.macos_window_background_blur = 40
 -- タブバーの上部のタイトルバーを削除
 config.window_decorations = "RESIZE"
 -- タブが1つの時はタブバーを非表示
@@ -36,9 +37,9 @@ config.window_frame = {
 	active_titlebar_bg = "none",
 }
 
-config.window_background_gradient = {
-	colors = { "#000000" },
-}
+--config.window_background_gradient = {
+--colors = { "#000000" },
+--}
 
 -- タブ同士の境界線を非表示
 config.colors = {
