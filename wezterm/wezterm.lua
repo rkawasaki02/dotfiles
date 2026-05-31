@@ -95,6 +95,16 @@ config.keys = {
 	{ key = "3", mods = "SUPER", action = act.ActivateTab(2) },
 	{ key = "4", mods = "SUPER", action = act.ActivateTab(3) },
 	{ key = "5", mods = "SUPER", action = act.ActivateTab(4) },
+
+	-- Cmd+E: タブ名を変更
+	{ key = "e", mods = "SUPER", action = wezterm.action.PromptInputLine({
+		description = "Tab name:",
+		action = wezterm.action_callback(function(window, pane, line)
+			if line then
+				window:active_tab():set_title(line)
+			end
+		end),
+	})},
 }
 
 return config
