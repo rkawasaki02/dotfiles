@@ -15,10 +15,10 @@ return {
 				"bash",
 			},
 			highlight = { enable = true },
-			indent = { enable = false }, -- treesitterのインデントを無効化
+			indent = { enable = true },
 		},
 		config = function(_, opts)
-			require("nvim-treesitter").setup(opts)
+			require("nvim-treesitter").setup(opts) -- .configsを消す
 		end,
 	},
 }
