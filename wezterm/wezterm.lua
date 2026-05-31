@@ -37,10 +37,6 @@ config.window_frame = {
 	active_titlebar_bg = "none",
 }
 
---config.window_background_gradient = {
---colors = { "#000000" },
---}
-
 -- タブ同士の境界線を非表示
 config.colors = {
 	tab_bar = {
