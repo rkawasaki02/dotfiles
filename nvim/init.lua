@@ -3,11 +3,15 @@
 -- ==========================================================================
 vim.opt.number = true         -- 行番号表示
 vim.opt.relativenumber = true -- 相対行番号
+vim.opt.numberwidth = 4       -- 行番号の桁数を固定（分割時のズレ防止）
+vim.opt.signcolumn = "yes"    -- サインカラムを常時表示（レイアウト安定）
 vim.opt.cursorline = true     -- カーソル行ハイライト
 vim.opt.termguicolors = true  -- 24bitカラー
 vim.opt.clipboard = "unnamedplus"
 vim.opt.mouse = "a"
 vim.opt.undofile = true
+vim.opt.wrap = false   -- 行を折り返さない（分割時のズレ防止）
+vim.opt.sidescroll = 1 -- 横スクロールを1文字ずつ（ガクッと飛ぶのを防ぐ）
 
 -- バックアップ・スワップファイルを作らない
 vim.opt.backup = false
@@ -61,13 +65,6 @@ vim.keymap.set("n", "<leader>sc", "<cmd>close<cr>", { desc = "分割を閉じる
 -- 5. ファイルタイプ別設定
 -- ==========================================================================
 
--- Pythonの組み込みインデントを無効化（treesitterと競合するため）
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "python",
-	callback = function()
-		vim.opt_local.indentexpr = ""
-	end,
-})
 
 -- ==========================================================================
 -- 6. ファイル実行
@@ -115,3 +112,4 @@ vim.api.nvim_create_autocmd({ "VimLeave", "VimSuspend" }, {
 	group = wez_group,
 	callback = function() set_wezterm_user_var("IS_NVIM", "false") end,
 })
+
