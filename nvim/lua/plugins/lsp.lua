@@ -2,14 +2,14 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			"williamboman/mason.nvim",
-			"williamboman/mason-lspconfig.nvim",
+			"mason-org/mason.nvim",
+			"mason-org/mason-lspconfig.nvim",
 		},
 		config = function()
 			-- 1. Mason でバイナリを管理
 			require("mason").setup()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "terraformls", "yamlls", "pyright" },
+				ensure_installed = { "lua_ls", "terraformls", "yamlls", "pyright", "typos_lsp" },
 			})
 
 			-- 2. LSP接続時の共通キーマップ
@@ -58,6 +58,12 @@ return {
 					},
 				},
 				pyright = {},
+				typos_lsp = {
+					init_options = {
+						-- 誤字の重大度（hint/info/warning/error）
+						diagnosticSeverity = "warning",
+					},
+				},
 			}
 
 			for server, config in pairs(servers) do

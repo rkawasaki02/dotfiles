@@ -19,7 +19,7 @@ config.font_size = 13.0
 -- カラースキーマ
 config.color_scheme = "Tokyo Night"
 config.text_background_opacity = 1.0
--- 背景を少し透過
+-- 背景は不透明（透過したいときはopacityを下げるとblurが効く）
 config.window_background_opacity = 1.0
 config.macos_window_background_blur = 40
 -- タブバーの上部のタイトルバーを削除

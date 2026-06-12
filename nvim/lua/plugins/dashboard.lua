@@ -33,7 +33,7 @@ return {
 						local icon, _ = require("nvim-web-devicons").get_icon(file,
 							vim.fn.fnamemodify(file, ":e"), { default = true })
 						local b = dashboard.button(tostring(count + 1), icon .. "  " .. filename,
-							":e " .. file .. "<CR>")
+							":e " .. vim.fn.fnameescape(file) .. "<CR>")
 						table.insert(buttons, b)
 						count = count + 1
 					end

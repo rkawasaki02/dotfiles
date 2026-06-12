@@ -1,7 +1,7 @@
 return {
 	"nvim-tree/nvim-tree.lua",
 	version = "*",
-	lazy = false,
+	-- ディレクトリを開く役目はoil.nvimに任せ、キーを押したときだけ読み込む
 	keys = {
 		{ "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "TreeToggle" },
 	},
