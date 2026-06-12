@@ -50,7 +50,7 @@ end
 set_custom_hl()
 vim.api.nvim_create_autocmd("ColorScheme", { callback = set_custom_hl })
 
-vim.opt.guicursor = "n-c:block-CursorNormal,i:ver25-CursorInsert,v:block-CursorVisual"
+vim.opt.guicursor = "n:block-CursorNormal,i:ver25-CursorInsert,v:block-CursorVisual,c:block-CursorCommand"
 
 -- ==========================================================================
 -- 4. ウィンドウ分割キーマップ
