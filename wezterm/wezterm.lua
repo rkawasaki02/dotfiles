@@ -2,7 +2,7 @@
 -- メイン設定
 -- --------------------
 
-local wezterm = require 'wezterm'
+local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 local act = wezterm.action
 
@@ -71,16 +71,16 @@ end)
 
 -- Neovim(smart-splits)と連携するための判断関数
 local function is_vim(pane)
-	return pane:get_user_vars().IS_NVIM == 'true'
+	return pane:get_user_vars().IS_NVIM == "true"
 end
 
 local function split_nav(key, direction)
 	return {
 		key = key,
-		mods = 'CTRL',
+		mods = "CTRL",
 		action = wezterm.action_callback(function(win, pane)
 			if is_vim(pane) then
-				win:perform_action({ SendKey = { key = key, mods = 'CTRL' } }, pane)
+				win:perform_action({ SendKey = { key = key, mods = "CTRL" } }, pane)
 			else
 				win:perform_action({ ActivatePaneDirection = direction }, pane)
 			end
@@ -90,10 +90,10 @@ end
 
 config.keys = {
 	-- Ctrl+hjkl: smart-splitsと連携
-	split_nav('h', 'Left'),
-	split_nav('j', 'Down'),
-	split_nav('k', 'Up'),
-	split_nav('l', 'Right'),
+	split_nav("h", "Left"),
+	split_nav("j", "Down"),
+	split_nav("k", "Up"),
+	split_nav("l", "Right"),
 
 	-- Cmd+数字: タブ番号で直接切り替え
 	{ key = "1", mods = "SUPER", action = act.ActivateTab(0) },
@@ -113,7 +113,7 @@ config.keys = {
 					window:active_tab():set_title(line)
 				end
 			end),
-		})
+		}),
 	},
 }
 
